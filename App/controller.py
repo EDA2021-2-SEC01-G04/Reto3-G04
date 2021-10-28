@@ -54,3 +54,8 @@ def loadArtists(analyzer):
 # Funciones de consulta sobre el catálogo
 def getUfosByCity(analyzer,city):
     return model.getUfosByCity(analyzer,city)
+def cityHeight(analyzer):
+    """
+    Altura del arbol
+    """
+    return model.cityHeight(analyzer)

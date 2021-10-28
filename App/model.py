@@ -107,6 +107,14 @@ def getUfosByCity(analyzer,city):
         return lst_srt 
     else:
         return "no hay avistamientos en esta ciudad"
+
+    
+def cityHeight(analyzer):
+    """
+    Altura del arbol
+    """
+    return om.height(analyzer['city'])
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 def compareDates(date1, date2):
     fecha_1 = datetime.datetime.strptime(date1["datetime"], '%Y-%m-%d %H:%M:%S')

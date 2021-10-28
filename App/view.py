@@ -51,6 +51,8 @@ while True:
         print("Cargando información de los archivos ....")
         catalog = controller.init()
         controller.loadArtists(catalog)
+        print('Altura del arbol: ' + str(controller.cityHeight(catalog)))
+        print("El totalde avistamients cargados fue de: " + str(lt.size(catalog["ufos"])))
 
     elif int(inputs[0]) == 2:
         city = input("Ingrese el nombre de la ciudad\n")
@@ -60,7 +62,7 @@ while True:
             print(lst)
         else:
             print("El total de avistamiento en " + city + "fue de: " + str(size))
-            print()
+            print(lt.getElement(lst,1))
 
     else:
         sys.exit(0)
