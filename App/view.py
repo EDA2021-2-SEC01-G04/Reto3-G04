@@ -37,7 +37,7 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Avistamientos en una ciudad")
 
 catalog = None
 
@@ -49,9 +49,18 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        catalog = controller.init()
+        controller.loadArtists(catalog)
 
     elif int(inputs[0]) == 2:
-        pass
+        city = input("Ingrese el nombre de la ciudad\n")
+        lst = controller.getUfosByCity(catalog,city)
+        size = lt.size(lst)
+        if lst is str:
+            print(lst)
+        else:
+            print("El total de avistamiento en " + city + "fue de: " + str(size))
+            print()
 
     else:
         sys.exit(0)
