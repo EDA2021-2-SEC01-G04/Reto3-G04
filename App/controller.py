@@ -38,15 +38,19 @@ def init():
     analyzer = model.newAnalyzer()
     return analyzer
 # Funciones para la carga de datos
-
-
 def loadArtists(analyzer):
-    artistfile = cf.data_dir + "UFOS/UFOS-utf8-small.csv"
+    artistfile = cf.data_dir + "UFOS/UFOS-utf8-large.csv"
     input_file = csv.DictReader(open(artistfile,encoding="utf-8"))
 
     for artist in input_file:
         model.addsightings(analyzer, artist)
     return analyzer
+
+def treeTime(analiyzer):
+    model.treeTime(analiyzer)
+def treeDate(analiyzer):
+    model.treeDate(analiyzer)
+
 # Funciones para la carga de datos
 
 # Funciones de ordenamiento
@@ -59,3 +63,13 @@ def cityHeight(analyzer):
     Altura del arbol
     """
     return model.cityHeight(analyzer)
+def getufosRangeTime(analyzer,time1,time2):
+    return model.getufosRangeTime(analyzer,time1,time2)
+
+def getufosRangeDate(analyzer,time1,time2):
+    return model.getufosRangeDate(analyzer,time1,time2)
+
+
+def mayorHora(analyzer):
+
+    return model.mayorHora(analyzer)

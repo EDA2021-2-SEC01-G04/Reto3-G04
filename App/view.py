@@ -41,6 +41,14 @@ def printMenu():
 
 catalog = None
 
+def getufosRangeTime(analyzer,time1,time2):
+    return controller.getufosRangeTime(analyzer,time1,time2)
+
+
+def getufosRangeDate(analyzer,time1,time2):
+    return controller.getufosRangeDate(analyzer,time1,time2)
+
+
 """
 Menu principal
 """
@@ -56,6 +64,7 @@ while True:
 
     elif int(inputs[0]) == 2:
         city = input("Ingrese el nombre de la ciudad\n")
+        controller.loadArtists(catalog)
         lst = controller.getUfosByCity(catalog,city)
         size = lt.size(lst)
         if lst is str:
@@ -63,6 +72,48 @@ while True:
         else:
             print("El total de avistamiento en " + city + "fue de: " + str(size))
             print(lt.getElement(lst,1))
+            print(lt.getElement(lst,1))
+            print(lt.getElement(lst,1))
+
+            
+    elif int(inputs[0]) == 4:
+        time_1 = input("Ingrese las horas de entre las que desea saber los avistamientos:\n")
+        time_2 = input()
+        controller.treeTime(catalog)
+        lst_info = getufosRangeTime(catalog,time_1,time_2)
+        sz = lt.size(lst_info[1])
+        print("El total de avistamnietos entre las " + time_1 +" y las "+ time_2 + " es de: " + str(lst_info[2]))
+        print(lt.getElement(lst_info[0],1))
+        print("---------------------------------------------------")
+        print(lt.getElement(lst_info[0],2))
+        print("---------------------------------------------------")
+        print(lt.getElement(lst_info[0],3))
+        print("---------------------------------------------------")
+        print(lt.getElement(lst_info[1],sz))
+        print("---------------------------------------------------")
+        print(lt.getElement(lst_info[1],sz-1))
+        print("---------------------------------------------------")
+        print(lt.getElement(lst_info[1],sz-2))
+    
+    
+    elif int(inputs[0]) == 5:
+        year_1 = input("Ingrese los años entre los que desea saber los avistamientos:\n")
+        year_2 = input()
+        controller.treeDate(catalog)
+        lst_info = getufosRangeDate(catalog,year_1,year_2)
+        sz = lt.size(lst_info[0])
+        print("El total de avistamnietos entre los años " + year_1 +" y las "+ year_2 + " es de: " + str(lst_info[1]))
+        print(lt.getElement(lst_info[0],1))
+        print("---------------------------------------------------")
+        print(lt.getElement(lst_info[0],2))
+        print("---------------------------------------------------")
+        print(lt.getElement(lst_info[0],3))
+        print("---------------------------------------------------")
+        print(lt.getElement(lst_info[0],sz))
+        print("---------------------------------------------------")
+        print(lt.getElement(lst_info[0],sz-1))
+        print("---------------------------------------------------")
+        print(lt.getElement(lst_info[0],sz-2))
 
     else:
         sys.exit(0)
