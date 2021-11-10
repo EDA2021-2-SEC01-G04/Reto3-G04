@@ -39,7 +39,7 @@ def init():
     return analyzer
 # Funciones para la carga de datos
 def loadArtists(analyzer):
-    artistfile = cf.data_dir + "UFOS/UFOS-utf8-large.csv"
+    artistfile = cf.data_dir + "UFOS/UFOS-utf8-small.csv"
     input_file = csv.DictReader(open(artistfile,encoding="utf-8"))
 
     for artist in input_file:

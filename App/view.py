@@ -69,7 +69,6 @@ while True:
 
     elif int(inputs[0]) == 2:
         city = input("Ingrese el nombre de la ciudad\n")
-        controller.loadArtists(catalog)
         lst = controller.getUfosByCity(catalog,city)
         size = lt.size(lst)
         if lst is str:
@@ -103,11 +102,11 @@ while True:
         print("---------------------------------------------------")
         print("Fecha: " +lt.getElement(lst_info[0],3)["datetime"]," Ciudad: " + lt.getElement(lst_info[0],3)["city"]," Estado: "+ lt.getElement(lst_info[0],3)["state"] ," País: " + lt.getElement(lst_info[0],3)["country"]," Duracion: " + lt.getElement(lst_info[0],3)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[0],3)["shape"])
         print("---------------------------------------------------")
-        print("Fecha: " +lt.getElement(lst_info[1],sz)["datetime"]," Ciudad: " + lt.getElement(lst_info[1],sz)["city"]," Estado: "+ lt.getElement(lst_info[1],sz)["state"] ," País: " + lt.getElement(lst_info[1],sz)["country"]," Duracion: " + lt.getElement(lst_info[1],sz)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[1],sz)["shape"])
+        print("Fecha: " +lt.getElement(lst_info[1],1)["datetime"]," Ciudad: " + lt.getElement(lst_info[1],1)["city"]," Estado: "+ lt.getElement(lst_info[1],1)["state"] ," País: " + lt.getElement(lst_info[1],1)["country"]," Duracion: " + lt.getElement(lst_info[1],1)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[1],1)["shape"])
         print("---------------------------------------------------")
-        print("Fecha: " +lt.getElement(lst_info[1],sz-1)["datetime"]," Ciudad: " + lt.getElement(lst_info[1],sz-1)["city"]," Estado: "+ lt.getElement(lst_info[1],sz-1)["state"] ," País: " + lt.getElement(lst_info[1],sz-1)["country"]," Duracion: " + lt.getElement(lst_info[1],sz-1)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[1],sz-1)["shape"])
+        print("Fecha: " +lt.getElement(lst_info[1],2)["datetime"]," Ciudad: " + lt.getElement(lst_info[1],2)["city"]," Estado: "+ lt.getElement(lst_info[1],2)["state"] ," País: " + lt.getElement(lst_info[1],2)["country"]," Duracion: " + lt.getElement(lst_info[1],2)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[1],2)["shape"])
         print("---------------------------------------------------")
-        print("Fecha: " +lt.getElement(lst_info[1],sz-2)["datetime"]," Ciudad: " + lt.getElement(lst_info[1],sz-2)["city"]," Estado: "+ lt.getElement(lst_info[1],sz-2)["state"] ," País: " + lt.getElement(lst_info[1],sz-2)["country"]," Duracion: " + lt.getElement(lst_info[1],sz-2)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[1],sz-2)["shape"])
+        print("Fecha: " +lt.getElement(lst_info[1],3)["datetime"]," Ciudad: " + lt.getElement(lst_info[1],3)["city"]," Estado: "+ lt.getElement(lst_info[1],3)["state"] ," País: " + lt.getElement(lst_info[1],3)["country"]," Duracion: " + lt.getElement(lst_info[1],3)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[1],3)["shape"])
     
     
     elif int(inputs[0]) == 5:
@@ -131,6 +130,10 @@ while True:
         print("Fecha: " +lt.getElement(lst_l,2)["datetime"]," Ciudad: " + lt.getElement(lst_l,2)["city"]," Estado: "+ lt.getElement(lst_l,2)["state"] ," País: " + lt.getElement(lst_l,2)["country"]," Duracion: " + lt.getElement(lst_l,2)["duration (seconds)"]," Forma: " + lt.getElement(lst_l,2)["shape"])
         print("---------------------------------------------------")
         print("Fecha: " +lt.getElement(lst_l,3)["datetime"]," Ciudad: " + lt.getElement(lst_l,3)["city"]," Estado: "+ lt.getElement(lst_l,3)["state"] ," País: " + lt.getElement(lst_l,3)["country"]," Duracion: " + lt.getElement(lst_l,3)["duration (seconds)"]," Forma: " + lt.getElement(lst_l,3)["shape"])
+
+    elif int(inputs[0]) == 6:
+        pass
+
 
     else:
         sys.exit(0)

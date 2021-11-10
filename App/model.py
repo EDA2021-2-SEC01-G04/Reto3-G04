@@ -26,6 +26,7 @@
 
 
 
+from DISClib.DataStructures.arraylist import size
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
@@ -58,6 +59,7 @@ def newAnalyzer():
     analyzer['city'] = om.newMap(omaptype='BST')
     analyzer["hour"] = om.newMap(omaptype='BST')
     analyzer["date"] = om.newMap(omaptype='BST')
+    analyzer["longitud"] = om.newMap(omaptype='BST')
     return analyzer
 # Funciones para agregar informacion al catalogo
 
@@ -139,6 +141,20 @@ def treeDate(analiyzer):
 def newDate():
     tmentry = lt.newList('SINGLELINKED')
     return tmentry
+
+#------Punto 5--------------------------------
+def treeLongitud(analyzer):
+    lst_ufos = analyzer["ufos"]
+
+
+
+
+
+
+
+
+
+
 # Funciones para creacion de datos
 
 # Funciones de consulta
@@ -147,7 +163,8 @@ def getUfosByCity(analyzer,city):
     lst = om.get(analyzer["city"],city)
     lst = me.getValue(lst)["lstufos"]
     if lst != None:
-        lst_srt = sa.sort(lst,compareDates)
+        lst_srt = sa.sort(lst,compareDate2)
+        print(lst_srt)
         return lst_srt 
     else:
         return "no hay avistamientos en esta ciudad"
@@ -161,14 +178,14 @@ def cityHeight(analyzer):
 
 #------------Punto 3----------------------------
 def getufosRangeTime(analyzer,time1,time2):
-    time1 = time1+"00"
-    time2 = time2+"00"
+    time1 = time1+":00"
+    time2 = time2+":00"
     lst_ufos = om.values(analyzer["hour"],time1,time2)
-    sz = lt.size(lst_ufos)
     lst_les = lt.getElement(lst_ufos,1)
-    lst_hig = lt.getElement(lst_ufos,sz)
-    lst_hig = sa.sort(lst_hig,compareDate1)
-    lst_les = sa.sort(lst_les,compareDate2)
+    lst_hig = om.get(analyzer["hour"],time2)
+    lst_hig = me.getValue(lst_hig)
+    lst_hig = sa.sort(lst_hig,compareDate2)
+    lst_les = sa.sort(lst_les,compareDate1)
     total = getTotalLst(lst_ufos)
     return (lst_les,lst_hig,total)
 
@@ -186,8 +203,6 @@ def getufosRangeDate(analyzer,time1,time2):
     lst_last = iteratelstLast(lst_ufos)
     total = getTotalLst(lst_ufos)
     return (lst_last,lst_first,total)
-
-
 
 def iterateLst(lst):
     i = lt.newList()
@@ -215,24 +230,59 @@ def iteratelstLast(lst):
     sz = lt.size(lst)
     i = lt.newList()
     element = lt.getElement(lst,sz)
-    sz = lt.size(element)
     if lt.size(element) >= 3:
-        element1 = lt.getElement(element,sz)
-        element2 = lt.getElement(element,sz-1)
-        element3 = lt.getElement(element,sz-2)
+        element1 = lt.getElement(element,1)
+        element2 = lt.getElement(element,2)
+        element3 = lt.getElement(element,3)
         lt.addLast(i,element1)
         lt.addLast(i,element2)
         lt.addLast(i,element3)
+    if lt.size(element) == 2:
+        element1 = lt.getElement(element,1)
+        element2 = lt.getElement(element,2)
+        element3 = lt.getElement(lst,sz-1)
+        element3 = lt.getElement(element3,1)
+        lt.addLast(i,element1)
+        lt.addLast(i,element2)
+        lt.addLast(i,element3)
+    if lt.size(element) == 1 and lt.size(lt.getElement(lst,sz-1)) > 1 :
+        element1 = lt.getElement(element,1)
+        element2 = lt.getElement(lst,sz-1)
+        element2 = lt.getElement(element2,1)
+        element3 = lt.getElement(lst,sz-1)
+        element3 = lt.getElement(element3,2)
+        lt.addLast(i,element1)
+        lt.addLast(i,element2)
+        lt.addLast(i,element3)
+
+    if lt.size(element) == 1 and lt.size(lt.getElement(lst,sz-1)) == 1:
+        element1 = lt.getElement(element,1)
+        element2 = lt.getElement(lst,sz-1)
+        element2 = lt.getElement(element2,1)
+        element3 = lt.getElement(lst,sz-2)
+        element3 = lt.getElement(element3,1)
+        lt.addLast(i,element1)
+        lt.addLast(i,element2)
+        lt.addLast(i,element3)
+
     return i 
+#----------------Punto 5---------------------
+
+
+
+
+
+
+
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 def compareDates(date1, date2):
     fecha_1 = datetime.datetime.strptime(date1["datetime"], '%Y-%m-%d %H:%M:%S')
     fecha_2 = datetime.datetime.strptime(date2["datetime"], '%Y-%m-%d %H:%M:%S')
     if (fecha_1 < fecha_2):
-        return 0
-    elif (fecha_1 > fecha_2):
         return 1
+    elif (fecha_1 > fecha_2):
+        return 0
 def compareDate1(date1, date2):
     fecha_1 = datetime.datetime.strptime(date1["datetime"], '%Y-%m-%d %H:%M:%S')
     fecha_2 = datetime.datetime.strptime(date2["datetime"], '%Y-%m-%d %H:%M:%S')
@@ -240,6 +290,7 @@ def compareDate1(date1, date2):
         return 0
     else:
         return 1
+
 def compareDate2(date1, date2):
     fecha_1 = datetime.datetime.strptime(date1["datetime"], '%Y-%m-%d %H:%M:%S')
     fecha_2 = datetime.datetime.strptime(date2["datetime"], '%Y-%m-%d %H:%M:%S')
