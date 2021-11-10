@@ -182,9 +182,48 @@ def mayorHora(analyzer):
 #-------------------Punt 4------------------
 def getufosRangeDate(analyzer,time1,time2):
     lst_ufos = om.values(analyzer["date"],time1,time2)
+    lst_first = iterateLst(lst_ufos)
+    lst_last = iteratelstLast(lst_ufos)
     total = getTotalLst(lst_ufos)
-    return (lst_ufos,total)
+    return (lst_last,lst_first,total)
 
+
+
+def iterateLst(lst):
+    i = lt.newList()
+    for j in lt.iterator(lst):
+        if lt.size(j) >= 3 and lt.size(i) < 3:
+            element1 = lt.getElement(j,1)
+            element2 = lt.getElement(j,2)
+            element3 = lt.getElement(j,3)
+            lt.addLast(i,element1)
+            lt.addLast(i,element2)
+            lt.addLast(i,element3)
+            break
+        if lt.size(j) == 2 and lt.size(i) < 3:
+            element1 = lt.getElement(j,1)
+            element2 = lt.getElement(j,2)
+            lt.addLast(i,element1)
+            lt.addLast(i,element2)
+        if lt.size(j) == 1 and lt.size(i) < 3:
+            element1 = lt.getElement(j,1)
+            lt.addLast(i,element1)
+
+        if lt.size(i) >= 3:
+            return i
+def iteratelstLast(lst):
+    sz = lt.size(lst)
+    i = lt.newList()
+    element = lt.getElement(lst,sz)
+    sz = lt.size(element)
+    if lt.size(element) >= 3:
+        element1 = lt.getElement(element,sz)
+        element2 = lt.getElement(element,sz-1)
+        element3 = lt.getElement(element,sz-2)
+        lt.addLast(i,element1)
+        lt.addLast(i,element2)
+        lt.addLast(i,element3)
+    return i 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 def compareDates(date1, date2):

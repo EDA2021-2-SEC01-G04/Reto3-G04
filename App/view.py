@@ -38,7 +38,10 @@ def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
     print("2- Avistamientos en una ciudad")
-
+    print("3- ")
+    print("4- Contar avistamientos por Hora/Minutos del día")
+    print("5- Contar los avistamientos en un rango de fechas")
+    print("6- ")
 catalog = None
 
 def getufosRangeTime(analyzer,time1,time2):
@@ -48,6 +51,8 @@ def getufosRangeTime(analyzer,time1,time2):
 def getufosRangeDate(analyzer,time1,time2):
     return controller.getufosRangeDate(analyzer,time1,time2)
 
+def top3(lst):
+    i = 0
 
 """
 Menu principal
@@ -71,10 +76,18 @@ while True:
             print(lst)
         else:
             print("El total de avistamiento en " + city + "fue de: " + str(size))
-            print(lt.getElement(lst,1))
-            print(lt.getElement(lst,1))
-            print(lt.getElement(lst,1))
-
+            print("---------------------------------------------------")
+            print("Fecha: " +lt.getElement(lst,1)["datetime"]," Ciudad: " + lt.getElement(lst,1)["city"]," Estado: "+ lt.getElement(lst,1)["state"] ," País: " + lt.getElement(lst,1)["country"]," Duracion: " + lt.getElement(lst,1)["duration (seconds)"]," Forma: " + lt.getElement(lst,1)["shape"])
+            print("---------------------------------------------------")
+            print("Fecha: " +lt.getElement(lst,2)["datetime"]," Ciudad: " + lt.getElement(lst,2)["city"]," Estado: "+ lt.getElement(lst,2)["state"] ," País: " + lt.getElement(lst,2)["country"]," Duracion: " + lt.getElement(lst,2)["duration (seconds)"]," Forma: " + lt.getElement(lst,2)["shape"])
+            print("---------------------------------------------------")
+            print("Fecha: " +lt.getElement(lst,3)["datetime"]," Ciudad: " + lt.getElement(lst,3)["city"]," Estado: "+ lt.getElement(lst,3)["state"] ," País: " + lt.getElement(lst,3)["country"]," Duracion: " + lt.getElement(lst,3)["duration (seconds)"]," Forma: " + lt.getElement(lst,3)["shape"])
+            print("---------------------------------------------------")
+            print("Fecha: " +lt.getElement(lst,size)["datetime"]," Ciudad: " + lt.getElement(lst,size)["city"]," Estado: "+ lt.getElement(lst,size)["state"] ," País: " + lt.getElement(lst,size)["country"]," Duracion: " + lt.getElement(lst,size)["duration (seconds)"]," Forma: " + lt.getElement(lst,size)["shape"])
+            print("---------------------------------------------------")
+            print("Fecha: " +lt.getElement(lst,size-1)["datetime"]," Ciudad: " + lt.getElement(lst,size-1)["city"]," Estado: "+ lt.getElement(lst,size-1)["state"] ," País: " + lt.getElement(lst,size-1)["country"]," Duracion: " + lt.getElement(lst,size-1)["duration (seconds)"]," Forma: " + lt.getElement(lst,size-1)["shape"])
+            print("---------------------------------------------------")
+            print("Fecha: " +lt.getElement(lst,size-2)["datetime"]," Ciudad: " + lt.getElement(lst,size-2)["city"]," Estado: "+ lt.getElement(lst,size-2)["state"] ," País: " + lt.getElement(lst,size-2)["country"]," Duracion: " + lt.getElement(lst,size-2)["duration (seconds)"]," Forma: " + lt.getElement(lst,size-2)["shape"])
             
     elif int(inputs[0]) == 4:
         time_1 = input("Ingrese las horas de entre las que desea saber los avistamientos:\n")
@@ -83,17 +96,18 @@ while True:
         lst_info = getufosRangeTime(catalog,time_1,time_2)
         sz = lt.size(lst_info[1])
         print("El total de avistamnietos entre las " + time_1 +" y las "+ time_2 + " es de: " + str(lst_info[2]))
-        print(lt.getElement(lst_info[0],1))
         print("---------------------------------------------------")
-        print(lt.getElement(lst_info[0],2))
+        print("Fecha: " +lt.getElement(lst_info[0],1)["datetime"]," Ciudad: " + lt.getElement(lst_info[0],1)["city"]," Estado: "+ lt.getElement(lst_info[0],1)["state"] ," País: " + lt.getElement(lst_info[0],1)["country"]," Duracion: " + lt.getElement(lst_info[0],1)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[0],1)["shape"])
         print("---------------------------------------------------")
-        print(lt.getElement(lst_info[0],3))
+        print("Fecha: " +lt.getElement(lst_info[0],2)["datetime"]," Ciudad: " + lt.getElement(lst_info[0],2)["city"]," Estado: "+ lt.getElement(lst_info[0],2)["state"] ," País: " + lt.getElement(lst_info[0],2)["country"]," Duracion: " + lt.getElement(lst_info[0],2)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[0],2)["shape"])
         print("---------------------------------------------------")
-        print(lt.getElement(lst_info[1],sz))
+        print("Fecha: " +lt.getElement(lst_info[0],3)["datetime"]," Ciudad: " + lt.getElement(lst_info[0],3)["city"]," Estado: "+ lt.getElement(lst_info[0],3)["state"] ," País: " + lt.getElement(lst_info[0],3)["country"]," Duracion: " + lt.getElement(lst_info[0],3)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[0],3)["shape"])
         print("---------------------------------------------------")
-        print(lt.getElement(lst_info[1],sz-1))
+        print("Fecha: " +lt.getElement(lst_info[1],sz)["datetime"]," Ciudad: " + lt.getElement(lst_info[1],sz)["city"]," Estado: "+ lt.getElement(lst_info[1],sz)["state"] ," País: " + lt.getElement(lst_info[1],sz)["country"]," Duracion: " + lt.getElement(lst_info[1],sz)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[1],sz)["shape"])
         print("---------------------------------------------------")
-        print(lt.getElement(lst_info[1],sz-2))
+        print("Fecha: " +lt.getElement(lst_info[1],sz-1)["datetime"]," Ciudad: " + lt.getElement(lst_info[1],sz-1)["city"]," Estado: "+ lt.getElement(lst_info[1],sz-1)["state"] ," País: " + lt.getElement(lst_info[1],sz-1)["country"]," Duracion: " + lt.getElement(lst_info[1],sz-1)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[1],sz-1)["shape"])
+        print("---------------------------------------------------")
+        print("Fecha: " +lt.getElement(lst_info[1],sz-2)["datetime"]," Ciudad: " + lt.getElement(lst_info[1],sz-2)["city"]," Estado: "+ lt.getElement(lst_info[1],sz-2)["state"] ," País: " + lt.getElement(lst_info[1],sz-2)["country"]," Duracion: " + lt.getElement(lst_info[1],sz-2)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[1],sz-2)["shape"])
     
     
     elif int(inputs[0]) == 5:
@@ -101,19 +115,22 @@ while True:
         year_2 = input()
         controller.treeDate(catalog)
         lst_info = getufosRangeDate(catalog,year_1,year_2)
+        lst_f = lst_info[1]
+        lst_l = lst_info[0]
         sz = lt.size(lst_info[0])
-        print("El total de avistamnietos entre los años " + year_1 +" y las "+ year_2 + " es de: " + str(lst_info[1]))
-        print(lt.getElement(lst_info[0],1))
+        print("El total de avistamnietos entre los años " + year_1 +" y las "+ year_2 + " es de: " + str(lst_info[2]))
         print("---------------------------------------------------")
-        print(lt.getElement(lst_info[0],2))
+        print("Fecha: " +lt.getElement(lst_f,1)["datetime"]," Ciudad: " + lt.getElement(lst_f,1)["city"]," Estado: "+ lt.getElement(lst_f,1)["state"] ," País: " + lt.getElement(lst_f,1)["country"]," Duracion: " + lt.getElement(lst_f,1)["duration (seconds)"]," Forma: " + lt.getElement(lst_f,1)["shape"])       
         print("---------------------------------------------------")
-        print(lt.getElement(lst_info[0],3))
+        print("Fecha: " +lt.getElement(lst_f,2)["datetime"]," Ciudad: " + lt.getElement(lst_f,2)["city"]," Estado: "+ lt.getElement(lst_f,2)["state"] ," País: " + lt.getElement(lst_f,2)["country"]," Duracion: " + lt.getElement(lst_f,2)["duration (seconds)"]," Forma: " + lt.getElement(lst_f,2)["shape"]) 
         print("---------------------------------------------------")
-        print(lt.getElement(lst_info[0],sz))
+        print("Fecha: " +lt.getElement(lst_f,3)["datetime"]," Ciudad: " + lt.getElement(lst_f,3)["city"]," Estado: "+ lt.getElement(lst_f,3)["state"] ," País: " + lt.getElement(lst_f,3)["country"]," Duracion: " + lt.getElement(lst_f,3)["duration (seconds)"]," Forma: " + lt.getElement(lst_f,3)["shape"]) 
         print("---------------------------------------------------")
-        print(lt.getElement(lst_info[0],sz-1))
+        print("Fecha: " +lt.getElement(lst_l,1)["datetime"]," Ciudad: " + lt.getElement(lst_l,1)["city"]," Estado: "+ lt.getElement(lst_l,1)["state"] ," País: " + lt.getElement(lst_l,1)["country"]," Duracion: " + lt.getElement(lst_l,1)["duration (seconds)"]," Forma: " + lt.getElement(lst_l,1)["shape"])
         print("---------------------------------------------------")
-        print(lt.getElement(lst_info[0],sz-2))
+        print("Fecha: " +lt.getElement(lst_l,2)["datetime"]," Ciudad: " + lt.getElement(lst_l,2)["city"]," Estado: "+ lt.getElement(lst_l,2)["state"] ," País: " + lt.getElement(lst_l,2)["country"]," Duracion: " + lt.getElement(lst_l,2)["duration (seconds)"]," Forma: " + lt.getElement(lst_l,2)["shape"])
+        print("---------------------------------------------------")
+        print("Fecha: " +lt.getElement(lst_l,3)["datetime"]," Ciudad: " + lt.getElement(lst_l,3)["city"]," Estado: "+ lt.getElement(lst_l,3)["state"] ," País: " + lt.getElement(lst_l,3)["country"]," Duracion: " + lt.getElement(lst_l,3)["duration (seconds)"]," Forma: " + lt.getElement(lst_l,3)["shape"])
 
     else:
         sys.exit(0)
