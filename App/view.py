@@ -87,6 +87,19 @@ while True:
             print("Fecha: " +lt.getElement(lst,size-1)["datetime"]," Ciudad: " + lt.getElement(lst,size-1)["city"]," Estado: "+ lt.getElement(lst,size-1)["state"] ," País: " + lt.getElement(lst,size-1)["country"]," Duracion: " + lt.getElement(lst,size-1)["duration (seconds)"]," Forma: " + lt.getElement(lst,size-1)["shape"])
             print("---------------------------------------------------")
             print("Fecha: " +lt.getElement(lst,size-2)["datetime"]," Ciudad: " + lt.getElement(lst,size-2)["city"]," Estado: "+ lt.getElement(lst,size-2)["state"] ," País: " + lt.getElement(lst,size-2)["country"]," Duracion: " + lt.getElement(lst,size-2)["duration (seconds)"]," Forma: " + lt.getElement(lst,size-2)["shape"])
+
+    elif int(inputs[0]) == 3:
+        min = int(input("Ingrese el limite inferior en segundos: "))
+        max = int(input("Ingrese el limite superior en segundos: "))
+        resultado = controller.sightings(catalog,min,max)
+        print("De los avistamientos en ese intervalo de segundos, el mayor es: " + str(resultado[0]) + " con un total de: " + str(resultado[1]) + " apariciones")
+        print("Los siguientes son los primeros 3 y ultimos 3 avistamientos en el rango: ")
+        print("Fecha: " + str(resultado[8]["datetime"]) + ", Ciudad: " + str(resultado[8]["city"]) + ", Pais: " + str(resultado[8]["country"]) + ", duracion en segundos: " + str(resultado[8]["duration (seconds)"]) + ", Forma del objeto: " + str(resultado[8]["shape"]))
+        print("Fecha: " + str(resultado[7]["datetime"]) + ", Ciudad: " + str(resultado[7]["city"]) + ", Pais: " + str(resultado[7]["country"]) + ", duracion en segundos: " + str(resultado[7]["duration (seconds)"]) + ", Forma del objeto: " + str(resultado[7]["shape"]))
+        print("Fecha: " + str(resultado[6]["datetime"]) + ", Ciudad: " + str(resultado[6]["city"]) + ", Pais: " + str(resultado[6]["country"]) + ", duracion en segundos: " + str(resultado[6]["duration (seconds)"]) + ", Forma del objeto: " + str(resultado[6]["shape"]))
+        print("Fecha: " + str(resultado[5]["datetime"]) + ", Ciudad: " + str(resultado[5]["city"]) + ", Pais: " + str(resultado[5]["country"]) + ", duracion en segundos: " + str(resultado[5]["duration (seconds)"]) + ", Forma del objeto: " + str(resultado[5]["shape"]))
+        print("Fecha: " + str(resultado[4]["datetime"]) + ", Ciudad: " + str(resultado[4]["city"]) + ", Pais: " + str(resultado[4]["country"]) + ", duracion en segundos: " + str(resultado[4]["duration (seconds)"]) + ", Forma del objeto: " + str(resultado[4]["shape"]))
+        print("Fecha: " + str(resultado[3]["datetime"]) + ", Ciudad: " + str(resultado[3]["city"]) + ", Pais: " + str(resultado[3]["country"]) + ", duracion en segundos: " + str(resultado[3]["duration (seconds)"]) + ", Forma del objeto: " + str(resultado[3]["shape"]))
             
     elif int(inputs[0]) == 4:
         time_1 = input("Ingrese las horas de entre las que desea saber los avistamientos:\n")

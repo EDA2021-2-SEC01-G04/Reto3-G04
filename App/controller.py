@@ -80,3 +80,6 @@ def getufoscoLatitud(analyzer,long1,long2,lat1,lat2):
 def mayorHora(analyzer):
 
     return model.mayorHora(analyzer)
+
+def sightings(analyzer,min,max):
+    return model.sightingsByDuration(analyzer,min,max)

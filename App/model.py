@@ -104,7 +104,28 @@ def newCityEntry(city, crime):
     ctentry['city'] = city
     ctentry['lstctufos'] = lt.newList('SINGLELINKED')
     return ctentry
+# ------------Punto 2------------
+def sightingsByDuration(analyzer,min,max):
+    duracion_max = 0
+    contador = 0
+    lista = lt.newList("SINGLE_LINKED")
+    for ufo in lt.iterator(analyzer['ufos']):
+        duration = float(ufo['duration (seconds)'])
+        if duration > duracion_max:
+            duracion_max = duration
+    
+    for ufo in lt.iterator(analyzer['ufos']):
+        if float(ufo['duration (seconds)']) == duracion_max:
+            contador += 1
+        if float(ufo['duration (seconds)']) >= min and float(ufo['duration (seconds)']) <= max:
+            lt.addLast(lista,ufo)
 
+    sa.sort(lista,compareDuration)
+    size = lt.size(lista)
+    retorno = [duracion_max,contador,size,lt.getElement(lista,1),lt.getElement(lista,2),lt.getElement(lista,3),lt.getElement(lista,size-2),lt.getElement(lista,size-1),lt.getElement(lista,size)]
+
+
+    return retorno
 
 # ------------Punto 3------------
 def treeTime(analiyzer):
@@ -330,6 +351,13 @@ def compareDates(date1, date2):
         return 1
     elif (fecha_1 > fecha_2):
         return 0
+
+def compareDuration(d1,d2):
+    if (float(d1['duration (seconds)']) < float(d2['duration (seconds)'])):
+        return 0
+    elif (float(d1['duration (seconds)']) > float(d2['duration (seconds)'])):
+        return 1
+
 def compareDate1(date1, date2):
     fecha_1 = datetime.datetime.strptime(date1["datetime"], '%Y-%m-%d %H:%M:%S')
     fecha_2 = datetime.datetime.strptime(date2["datetime"], '%Y-%m-%d %H:%M:%S')
