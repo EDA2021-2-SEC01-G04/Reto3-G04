@@ -26,7 +26,7 @@
 
 
 
-from DISClib.DataStructures.arraylist import size
+
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
@@ -35,7 +35,7 @@ from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
 import datetime
 assert cf
-
+import time as t
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
 los mismos.
@@ -69,6 +69,7 @@ def addsightings(analyzer, ufo):
     """
     lt.addLast(analyzer['ufos'], ufo)
     updateDatetime(analyzer['city'], ufo)
+    
     return analyzer
 
 def updateDatetime(mapa,ufo):
@@ -107,6 +108,7 @@ def newCityEntry(city, crime):
 
 # ------------Punto 3------------
 def treeTime(analiyzer):
+    star_time = t.process_time()
     lst_ufo = analiyzer["ufos"]
     for ufo in lt.iterator(lst_ufo):
         time = datetime.datetime.strptime(ufo["datetime"],'%Y-%m-%d %H:%M:%S')
@@ -119,12 +121,15 @@ def treeTime(analiyzer):
         else:
             timentry = me.getValue(entry)
             lt.addLast(timentry,ufo)
-
+    end_time = t.process_time()
+    laps_time = (end_time - star_time)*1000      
+    return laps_time
 def newTime():
     tmentry = lt.newList('SINGLELINKED')
     return tmentry
 #--------------------Punt 4-------------
 def treeDate(analiyzer):
+    star_time = t.process_time()
     lst_ufo = analiyzer["ufos"]
     for ufo in lt.iterator(lst_ufo):
         time = datetime.datetime.strptime(ufo["datetime"],'%Y-%m-%d %H:%M:%S')
@@ -137,6 +142,9 @@ def treeDate(analiyzer):
         else:
             timentry = me.getValue(entry)
             lt.addLast(timentry,ufo)
+    end_time = t.process_time()
+    laps_time = (end_time - star_time)*1000      
+    return laps_time
 
 def newDate():
     tmentry = lt.newList('SINGLELINKED')
@@ -144,12 +152,41 @@ def newDate():
 
 #------Punto 5--------------------------------
 def treeLongitud(analyzer):
+    star_time = t.process_time()
     lst_ufos = analyzer["ufos"]
+    for ufo in lt.iterator(lst_ufos):
+        long = str(round(float(ufo["longitude"]),2))
+        entry = om.get(analyzer["longitud"],long)
+        if entry == None:
+            long_entry = newLong()
+            addLongitu(long_entry,ufo)
+            om.put(analyzer["longitud"],long,long_entry)
+        else:
+            long_entry = me.getValue(entry)
+            addLongitu(long_entry,ufo)
+    
+    
+    end_time = t.process_time()
+    laps_time = (end_time - star_time)*1000      
+    return laps_time
+def addLongitu(data_entry,ufo):
+    long_entry = mp.get(data_entry,str(round(float(ufo["latitude"]),2)))
+    if long_entry == None:
+        entry = newLatitud(str(round(float(ufo["latitude"]),2)))
+        lt.addLast(entry["lstlatitud"],ufo)
+        mp.put(data_entry,str(round(float(ufo["latitude"]),2)),entry)
+    else:
+        entry = me.getValue(long_entry)
+        lt.addLast(entry["lstlatitud"],ufo)
 
-
-
-
-
+def newLong():
+    entry = mp.newMap(numelements=200,maptype='PROBING')
+    return entry
+def newLatitud(latitud):
+    entry = {'latitud': None, 'lstlatitud': None}
+    entry['latitud'] = latitud
+    entry['lstlatitud'] = lt.newList('SINGLELINKED')
+    return entry
 
 
 
@@ -164,7 +201,6 @@ def getUfosByCity(analyzer,city):
     lst = me.getValue(lst)["lstufos"]
     if lst != None:
         lst_srt = sa.sort(lst,compareDate2)
-        print(lst_srt)
         return lst_srt 
     else:
         return "no hay avistamientos en esta ciudad"
@@ -267,14 +303,25 @@ def iteratelstLast(lst):
 
     return i 
 #----------------Punto 5---------------------
+def getufoscoLatitud(analyzer,long1,long2,lat1,lat2):
+    lst = om.values(analyzer["longitud"],long1,long2)
+    lst = iterateLstValues(lst,lat1,lat2)
+    print(lst)
+    return lst
 
+def iterateLstValues(lst,lat1,lat2):
+    lista = lt.newList()
+    for l in lt.iterator(lst):
+        if mp.contains(l,lat1):
+            k = mp.get(l,lat1)
+            k = me.getValue(k)["lstlatitud"]
+            lt.addLast(lista,k)
+        if mp.contains(l,lat2):
+            k = mp.get(l,lat2)
+            k = me.getValue(k)["lstlatitud"]
+            lt.addLast(lista,k)
 
-
-
-
-
-
-
+    return lista
 # Funciones utilizadas para comparar elementos dentro de una lista
 def compareDates(date1, date2):
     fecha_1 = datetime.datetime.strptime(date1["datetime"], '%Y-%m-%d %H:%M:%S')

@@ -23,7 +23,7 @@
 import config as cf
 import model
 import csv
-
+import time as t
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -39,17 +39,22 @@ def init():
     return analyzer
 # Funciones para la carga de datos
 def loadArtists(analyzer):
+    star_time = t.process_time()
     artistfile = cf.data_dir + "UFOS/UFOS-utf8-small.csv"
     input_file = csv.DictReader(open(artistfile,encoding="utf-8"))
 
     for artist in input_file:
         model.addsightings(analyzer, artist)
-    return analyzer
+    end_time = t.process_time()
+    laps_time = (end_time - star_time)*1000
+    return (laps_time)
 
 def treeTime(analiyzer):
-    model.treeTime(analiyzer)
+    return model.treeTime(analiyzer)
 def treeDate(analiyzer):
-    model.treeDate(analiyzer)
+    return model.treeDate(analiyzer)
+def treeLongitud(analyzer):
+    return model.treeLongitud(analyzer)
 
 # Funciones para la carga de datos
 
@@ -69,6 +74,8 @@ def getufosRangeTime(analyzer,time1,time2):
 def getufosRangeDate(analyzer,time1,time2):
     return model.getufosRangeDate(analyzer,time1,time2)
 
+def getufoscoLatitud(analyzer,long1,long2,lat1,lat2):
+    return model.getufoscoLatitud(analyzer,long1,long2,lat1,lat2)
 
 def mayorHora(analyzer):
 

@@ -38,10 +38,11 @@ def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
     print("2- Avistamientos en una ciudad")
-    print("3- ")
-    print("4- Contar avistamientos por Hora/Minutos del día")
-    print("5- Contar los avistamientos en un rango de fechas")
-    print("6- ")
+    print("3- Avistamientos por duración")
+    print("4- Avistamientos por Hora/Minutos del día")
+    print("5- Avistamientos en un rango de fechas")
+    print("6- Avistamientos de una Zona Geográfica")
+
 catalog = None
 
 def getufosRangeTime(analyzer,time1,time2):
@@ -51,8 +52,6 @@ def getufosRangeTime(analyzer,time1,time2):
 def getufosRangeDate(analyzer,time1,time2):
     return controller.getufosRangeDate(analyzer,time1,time2)
 
-def top3(lst):
-    i = 0
 
 """
 Menu principal
@@ -63,9 +62,10 @@ while True:
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
         catalog = controller.init()
-        controller.loadArtists(catalog)
-        print('Altura del arbol: ' + str(controller.cityHeight(catalog)))
+        time = controller.loadArtists(catalog)
+        print("El tiempo de carga de datos fue de: "+str(time))
         print("El totalde avistamients cargados fue de: " + str(lt.size(catalog["ufos"])))
+        
 
     elif int(inputs[0]) == 2:
         city = input("Ingrese el nombre de la ciudad\n")
@@ -91,9 +91,10 @@ while True:
     elif int(inputs[0]) == 4:
         time_1 = input("Ingrese las horas de entre las que desea saber los avistamientos:\n")
         time_2 = input()
-        controller.treeTime(catalog)
+        time = controller.treeTime(catalog)
         lst_info = getufosRangeTime(catalog,time_1,time_2)
         sz = lt.size(lst_info[1])
+        print("El tiempo de carga fue de: " +str(time))
         print("El total de avistamnietos entre las " + time_1 +" y las "+ time_2 + " es de: " + str(lst_info[2]))
         print("---------------------------------------------------")
         print("Fecha: " +lt.getElement(lst_info[0],1)["datetime"]," Ciudad: " + lt.getElement(lst_info[0],1)["city"]," Estado: "+ lt.getElement(lst_info[0],1)["state"] ," País: " + lt.getElement(lst_info[0],1)["country"]," Duracion: " + lt.getElement(lst_info[0],1)["duration (seconds)"]," Forma: " + lt.getElement(lst_info[0],1)["shape"])
@@ -112,11 +113,12 @@ while True:
     elif int(inputs[0]) == 5:
         year_1 = input("Ingrese los años entre los que desea saber los avistamientos:\n")
         year_2 = input()
-        controller.treeDate(catalog)
+        time = controller.treeDate(catalog)
         lst_info = getufosRangeDate(catalog,year_1,year_2)
         lst_f = lst_info[1]
         lst_l = lst_info[0]
         sz = lt.size(lst_info[0])
+        print("Tiempo de carga: " +str(time))
         print("El total de avistamnietos entre los años " + year_1 +" y las "+ year_2 + " es de: " + str(lst_info[2]))
         print("---------------------------------------------------")
         print("Fecha: " +lt.getElement(lst_f,1)["datetime"]," Ciudad: " + lt.getElement(lst_f,1)["city"]," Estado: "+ lt.getElement(lst_f,1)["state"] ," País: " + lt.getElement(lst_f,1)["country"]," Duracion: " + lt.getElement(lst_f,1)["duration (seconds)"]," Forma: " + lt.getElement(lst_f,1)["shape"])       
@@ -132,7 +134,14 @@ while True:
         print("Fecha: " +lt.getElement(lst_l,3)["datetime"]," Ciudad: " + lt.getElement(lst_l,3)["city"]," Estado: "+ lt.getElement(lst_l,3)["state"] ," País: " + lt.getElement(lst_l,3)["country"]," Duracion: " + lt.getElement(lst_l,3)["duration (seconds)"]," Forma: " + lt.getElement(lst_l,3)["shape"])
 
     elif int(inputs[0]) == 6:
-        pass
+        long1 = input("Ingrese el rango de lngitud:\n")
+        long2 = input()
+        lat1 = input("Ingrese el rango de latitud:\n")
+        lat2 = input()
+        time = controller.treeLongitud(catalog)
+        lst_c = controller.getufoscoLatitud(catalog,long1,long2,lat1,lat2)
+        print("El tiempo de carga fue de: "+str(time))
+
 
 
     else:
