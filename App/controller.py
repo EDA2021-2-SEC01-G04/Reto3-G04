@@ -53,8 +53,8 @@ def treeTime(analiyzer):
     return model.treeTime(analiyzer)
 def treeDate(analiyzer):
     return model.treeDate(analiyzer)
-def treeLongitud(analyzer):
-    return model.treeLongitud(analyzer)
+def treeLongitud(analyzer,lomin,lomax,lamin,lamax):
+    return model.treeLongitud(analyzer,lomin,lomax,lamin,lamax)
 
 # Funciones para la carga de datos
 
@@ -80,6 +80,8 @@ def getufoscoLatitud(analyzer,long1,long2,lat1,lat2):
 def mayorHora(analyzer):
 
     return model.mayorHora(analyzer)
+def zone(analyzer):
+    return model.sightingsByZone(analyzer)
 
 def sightings(analyzer,min,max):
     return model.sightingsByDuration(analyzer,min,max)

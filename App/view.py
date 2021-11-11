@@ -147,13 +147,14 @@ while True:
         print("Fecha: " +lt.getElement(lst_l,3)["datetime"]," Ciudad: " + lt.getElement(lst_l,3)["city"]," Estado: "+ lt.getElement(lst_l,3)["state"] ," País: " + lt.getElement(lst_l,3)["country"]," Duracion: " + lt.getElement(lst_l,3)["duration (seconds)"]," Forma: " + lt.getElement(lst_l,3)["shape"])
 
     elif int(inputs[0]) == 6:
-        long1 = input("Ingrese el rango de lngitud:\n")
-        long2 = input()
-        lat1 = input("Ingrese el rango de latitud:\n")
-        lat2 = input()
-        time = controller.treeLongitud(catalog)
-        lst_c = controller.getufoscoLatitud(catalog,long1,long2,lat1,lat2)
+        lomin = float(input("Ingrese el rango de lngitud:\n"))
+        lomax = float(input())
+        lamin = float(input("Ingrese el rango de latitud:\n"))
+        lamax = float(input())
+        time = controller.treeLongitud(catalog,lomin,lomax,lamin,lamax)
+        lst_c = controller.zone(catalog)
         print("El tiempo de carga fue de: "+str(time))
+        print(lst_c)
 
 
 

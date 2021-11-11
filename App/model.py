@@ -172,45 +172,36 @@ def newDate():
     return tmentry
 
 #------Punto 5--------------------------------
-def treeLongitud(analyzer):
+def treeLongitud(analyzer,lomin,lomax,lamin,lamax):
     star_time = t.process_time()
     lst_ufos = analyzer["ufos"]
+
     for ufo in lt.iterator(lst_ufos):
-        long = str(round(float(ufo["longitude"]),2))
+        long = round(float(ufo["longitude"]),2)
+        lat = round(float(ufo["longitude"]),2)
         entry = om.get(analyzer["longitud"],long)
-        if entry == None:
-            long_entry = newLong()
-            addLongitu(long_entry,ufo)
-            om.put(analyzer["longitud"],long,long_entry)
-        else:
-            long_entry = me.getValue(entry)
-            addLongitu(long_entry,ufo)
-    
+        if (long >= lomin and long <= lomax) and (lat >= lamin and lat <= lamax):
+            if entry == None:
+                lista = lt.newList("SINGLE_LINKED")
+                lt.addLast(lista,ufo)
+                om.put(analyzer["longitud"],long,lista)
+            else:
+                long_entry = me.getValue(entry)
+                lt.addLast(long_entry,ufo)
     
     end_time = t.process_time()
     laps_time = (end_time - star_time)*1000      
     return laps_time
-def addLongitu(data_entry,ufo):
-    long_entry = mp.get(data_entry,str(round(float(ufo["latitude"]),2)))
-    if long_entry == None:
-        entry = newLatitud(str(round(float(ufo["latitude"]),2)))
-        lt.addLast(entry["lstlatitud"],ufo)
-        mp.put(data_entry,str(round(float(ufo["latitude"]),2)),entry)
-    else:
-        entry = me.getValue(long_entry)
-        lt.addLast(entry["lstlatitud"],ufo)
 
-def newLong():
-    entry = mp.newMap(numelements=200,maptype='PROBING')
-    return entry
-def newLatitud(latitud):
-    entry = {'latitud': None, 'lstlatitud': None}
-    entry['latitud'] = latitud
-    entry['lstlatitud'] = lt.newList('SINGLELINKED')
-    return entry
-
-
-
+def sightingsByZone(analyzer):
+    lst = lt.newList("SINGLE_LINKED")
+    lista_longitudes = om.keySet(analyzer["longitud"])
+    for longitud in lt.iterator(lista_longitudes):
+        lista = om.get(analyzer["longitud"],longitud)
+        for ufo in lt.iterator(lista):
+            lt.addLast(lst,ufo)
+    sa.sort(lst,compareDates)
+    return lst
 
 
 # Funciones para creacion de datos
@@ -323,26 +314,7 @@ def iteratelstLast(lst):
         lt.addLast(i,element3)
 
     return i 
-#----------------Punto 5---------------------
-def getufoscoLatitud(analyzer,long1,long2,lat1,lat2):
-    lst = om.values(analyzer["longitud"],long1,long2)
-    lst = iterateLstValues(lst,lat1,lat2)
-    print(lst)
-    return lst
 
-def iterateLstValues(lst,lat1,lat2):
-    lista = lt.newList()
-    for l in lt.iterator(lst):
-        if mp.contains(l,lat1):
-            k = mp.get(l,lat1)
-            k = me.getValue(k)["lstlatitud"]
-            lt.addLast(lista,k)
-        if mp.contains(l,lat2):
-            k = mp.get(l,lat2)
-            k = me.getValue(k)["lstlatitud"]
-            lt.addLast(lista,k)
-
-    return lista
 # Funciones utilizadas para comparar elementos dentro de una lista
 def compareDates(date1, date2):
     fecha_1 = datetime.datetime.strptime(date1["datetime"], '%Y-%m-%d %H:%M:%S')
